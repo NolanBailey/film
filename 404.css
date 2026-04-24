@@ -1,0 +1,94 @@
+/* Copyright © Nolan Bailey 2026, All Rights Reserved */
+
+.error-page {
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #0c0c0c;
+    background-repeat: repeat;
+    background-size: 250px 250px; /* Adjust this to make the 'chunks' bigger or smaller */
+    
+    /* 1. KILLS THE BLUR: Forces the browser to keep edges sharp */
+    image-rendering: pixelated;
+    
+    /* 2. KILLS THE GREY: Turns grey into sharp White/Black grit */
+    /* 3. KILLS THE COLOR: Forces it to be pure B&W */
+    filter: grayscale(1) contrast(500%) brightness(150%);
+    
+    /* 4. BLENDING: Makes the grit sit "in" the background */
+    opacity: 0.15; 
+    
+    position: relative;
+    overflow: hidden;
+}
+
+
+
+
+
+
+/* THE NOISE LAYER */
+.error-page {
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #0c0c0c;
+    background-repeat: repeat;
+    background-size: 200px 200px; /* Controls how "chunky" the pixels look */
+    
+    /* CRITICAL: Stops the browser from blurring the grit into grey clouds */
+    image-rendering: pixelated; 
+    image-rendering: crisp-edges;
+    
+    /* Blends the noise into the background */
+    background-blend-mode: overlay;
+    opacity: 0.15; /* Increase this to 0.3 for more "aggressive" static */
+    
+    position: relative;
+    overflow: hidden;
+}
+
+.error-page::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: 2;
+    /* Softened Vignette: 50% clear center so the grit is visible */
+    background: radial-gradient(circle, rgba(12, 12, 12, 0) 50%, rgba(0, 0, 0, 0.9) 100%);
+    pointer-events: none;
+}
+
+
+
+/* THE TEXT LAYER - Must be higher than the vignette */
+.content {
+  position: relative;
+  z-index: 5; 
+  color: #fff;
+  text-align: center;
+  text-shadow: 0 0 20px black; /* Heavy shadow helps text stand out from noise */
+}
+
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body, html {
+  width: 100%;
+  height: 100%;
+  overflow: hidden; /* Prevents unwanted scrollbars */
+}
+
+h1 {
+  color: white;
+  font-family: ui-monospace, 'SF Mono', menlo, 'Cascadia Code', Consolas, 'Lucida Sans Typewriter', 'Courier New', monospace;
+  z-index: 10;
+  text-shadow: 0 0 10px rgba(0,0,0,0.8);
+}
